@@ -7,12 +7,12 @@ public class Table<T>
     public string name;
     public List<ColumnBase> columns;
 
-    private QualityAssuranceRagAll ch = new QualityAssuranceRagAll();
+    private PaceNature t = new PaceNature();
 
     public Table(string name, List<ColumnBase>? columns)
     {
         this.name = name;
-        this.columns = ch.getQualityAssuranceRagAllTableData();
+        this.columns = t.getTableColumnData();
     }
     
     
@@ -57,6 +57,8 @@ public class Table<T>
             id = column.id,
             sortable = column.sortable,
             type = typeof(T).Name,
+            borderL = column.borderL,
+            borderR = column.borderR,
             childrenColumns = ProcessColumns(column.childrenColumns)
         };
     }

@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using TMGbe.Models;
 
 namespace TMGbe.Controllers
@@ -9,11 +7,9 @@ namespace TMGbe.Controllers
     [Route("[controller]")]
     public class TableController : ControllerBase
     {
-        //setting the feature traceability table
-         //Table<Component>feature_traceability_table = new Table<Component>("Traceability",null);
-        // Table<Component>components_overview_table = new Table<Component>("Components Overview",null);
-         Table<Component>table = new Table<Component>("Test",null);
-
+        
+         static  Table<Component> table = new Table<Component>("Test",null);
+         string jsonResult = table.GenerateJsonFromTable(table);
          [HttpGet(Name = "GetTableData")]
         public IActionResult Get()
         {
@@ -21,7 +17,7 @@ namespace TMGbe.Controllers
             Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
             Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
             
-            string jsonResult = table.GenerateJsonFromTable(table);
+            
             return Ok(jsonResult);
         }
     }
