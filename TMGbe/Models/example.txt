@@ -1,0 +1,179 @@
+using System.Text;
+
+namespace DxWorks.ScriptBee.Plugin.Api;
+
+public static partial class HelperFunctions
+{
+}
+
+class Commit
+{
+    public string Id;
+    public string Message;
+    public List<Change> Changes;
+    public DateTime Timestamp;
+}
+
+class Change
+{
+    public Commit Commit;
+    public File File;
+    public int AddedLines;
+    public int DeletedLines;
+}
+
+class File
+{
+    public string Name;
+    public string Path;
+    public long Size;
+    public List<Change> Changes;
+}
+
+class Component
+{
+    public string Name;
+    public List<File> files;
+}
+
+class Table<T>
+{
+    public string Name;
+    public List<Column<T,Object>> Columns;
+
+    public Table(string name, List<Column<T, Object>> columns)
+    {
+        Name = name;
+        Columns = columns;
+    }
+
+    public string generateJSON(List<T> data)
+    {
+        var json = new StringBuilder();
+        json.Append("{");
+        json.Append($"\"name\": \"{Name}\",");
+        json.Append("\"columns\": [");
+        foreach (var column in Columns)
+        {
+            json.Append("{");
+            json.Append($"\"id\": \"{column.Id}\",");
+            json.Append($"\"displayName\": \"{column.DisplayName}\",");
+            json.Append($"\"description\": \"{column.Description}\",");
+            json.Append($"\"sortable\": \"{column.sortable}\",");
+            if (column.children != null)
+            {
+                json.Append("\"children\": [");
+                foreach (var child in column.children)
+                {
+                    json.Append("{");
+                    json.Append($"\"id\": \"{child.Id}\",");
+                    json.Append($"\"displayName\": \"{child.DisplayName}\",");
+                    json.Append($"\"description\": \"{child.Description}\",");
+                    json.Append($"\"sortable\": \"{child.sortable}\",");
+                    json.Append("},");
+                }
+                json.Append("],");
+            }
+            json.Append("},");
+        }
+        json.Append("],");
+        json.Append("\"data\": [");
+        foreach (var row in data)
+        {
+            json.Append("{");
+            foreach (var column in Columns)
+            {
+                json.Append($"\"{column.Id}\": \"{column.Computer(row)}\",");
+                if (column.conditionalFormatter != null)
+                {
+                    var style = column.conditionalFormatter(row, column.Computer(row));
+                    json.Append($"\"{column.Id}Style\": \"{style["style"]}\",");
+                }
+            }
+            json.Append("},");
+        }
+        json.Append("]");
+        json.Append("}");
+        return json.ToString();
+    }
+}
+
+class Style : Dictionary<string, string>
+{
+}
+
+class Column<T, R>
+{
+    public Func<T, R> Computer;
+    public string DisplayName;
+    public string Id;
+    public string Description;
+    public Boolean sortable;
+
+    public List<Column<T, R>>? children;
+
+    public Func<T, R, Dictionary<string, string>>? conditionalFormatter;
+
+    public Func<R, string>? DisplayFormatter;
+
+    public Column(string id, Func<T, R> computer, string displayName, Func<T, R, Dictionary<string, string>>? conditionalFormatter, List<Column<T, R>>? children = null, string description = "", bool sortable = true)
+    {
+        Id = id;
+        Computer = computer;
+        DisplayName = displayName;
+        this.conditionalFormatter = conditionalFormatter;
+        Description = description;
+        this.sortable = sortable;
+        this.children = children;
+    }
+}
+
+class DateCol<T> : Column<T, DateTime>
+{
+    
+    public DateCol(string id, Func<T, DateTime> computer, string displayName, List<Column<T, DateTime>>? children = null, string description = "", bool sortable = true) : base(id, computer, displayName, children, description, sortable)
+    {
+    }
+}
+
+class Main
+{
+    public void main()
+    {
+        var nameColumn = new Column<Component, String>("compName", component => component.Name, "Component");
+        var filesColumn = new Column<Component, long>("filesNo", component => component.files.Count, "#");
+        var filesColWrapper = new Column<Component, long>("filesWrapper", null, "files",
+            new List<Column<Component, long>>() { filesColumn });
+
+        var latestDate = new Column<Component, DateTime>("lastDate",
+            component => component.files.SelectMany(file => file.Changes.Select(ch => ch.Commit.Timestamp)).Last(), "yyyy-MM", conditionalFormatter: (component, time) =>
+            {
+                if(time > DateTime.Now.AddMonths(-1))
+                    return new Dictionary<string, string>()
+                    {
+                        { "background-color: green; 
+                        "color": red"
+                         }
+                    };
+                else if(time > DateTime.Now.AddMonths(-2))
+                    return new Dictionary<string, string>()
+                    {
+                        {  "background-color: yellow;" }
+                    };
+                else
+                return new Dictionary<string, string>()
+                {
+                    {  "background-color: red;" }
+                };
+            });
+
+
+        var table = new Table<Component>("Traceability", new List<Column<Component, object>>()
+        {
+            nameColumn, filesColWrapper
+        });
+
+
+        table.generateJSON();
+    }
+}

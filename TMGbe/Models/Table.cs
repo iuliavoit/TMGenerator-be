@@ -51,6 +51,7 @@ public class Table<T>
     
     private static object CreateColumnObject<T>(Column<Component, T> column)
     {
+
         return new
         {
             name = column.name,
@@ -59,7 +60,8 @@ public class Table<T>
             type = typeof(T).Name,
             borderL = column.borderL,
             borderR = column.borderR,
-            childrenColumns = ProcessColumns(column.childrenColumns)
+            borderB = column.borderB,
+            childrenColumns = ProcessColumns(column.childrenColumns),
         };
     }
 }

@@ -28,28 +28,28 @@ public class ComponentsOverview
         Column<Component, long> importedFilesColumnOne = new Column<Component, long>
             ("#importedfiles", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> importedFilesColumnTwo = new Column<Component, long>
-            ("%allimportedfiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allimportedfiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, long> importedfilesColumnWrapper = new Column<Component, long>
         ("importedfiles", "imported" + "<br>" + "files", "font-weight: 400;font-size: 13px;color: #6c757d;",
             childrenColumns: new List<ColumnBase>() { importedFilesColumnOne, importedFilesColumnTwo });
         Column<Component, long> sourceFilesColumnOne = new Column<Component, long>
             ("#sourcefiles", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> sourceFilesColumnTwo = new Column<Component, long>
-            ("%allsourcefiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allsourcefiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, long> sourcefilesColumnWrapper = new Column<Component, long>
         ("sourcefiles", "source" + "<br>" + "files", "font-weight: 400;font-size: 13px;color: #6c757d;", null,
             childrenColumns: new List<ColumnBase>() { sourceFilesColumnOne, sourceFilesColumnTwo });
         Column<Component, long> activeFilesColumnOne = new Column<Component, long>
             ("#activefiles", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> activeFilesColumnTwo = new Column<Component, long>
-            ("%allactivefiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allactivefiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, long> activefilesColumnWrapper = new Column<Component, long>
         ("activefiles", "active" + "<br>" + "recently", "font-weight: 400;font-size: 13px;color: #6c757d;", null,
             childrenColumns: new List<ColumnBase>() { activeFilesColumnOne, activeFilesColumnTwo });
         Column<Component, long> createdFilesColumnOne = new Column<Component, long>
             ("#createdfiles", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> createdFilesColumnTwo = new Column<Component, long>
-            ("%allcreatedfiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", borderR:true);
+            ("%allcreatedfiles", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", borderR:true, sortable:false);
         Column<Component, long> createdfilesColumnWrapper = new Column<Component, long>
         ("createdfiles", "created" + "<br>" + "recently", "font-weight: 400;font-size: 13px;color: #6c757d;", null, borderR:true,
             childrenColumns: new List<ColumnBase>() { createdFilesColumnOne, createdFilesColumnTwo });
@@ -68,14 +68,14 @@ public class ComponentsOverview
         Column<Component, int> sourceCodeColumnOne = new Column<Component, int>
             ("x1000source", "x1000", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, int> sourceCodeColumnTwo = new Column<Component, int>
-            ("%allsource", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allsource", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, int> sourceColumnWrapper = new Column<Component, int>
         ("source", "source" + "<br>" + "code lines", "font-weight: 400;font-size: 13px;color: #6c757d;", null,
             childrenColumns: new List<ColumnBase>() { sourceCodeColumnOne, sourceCodeColumnTwo });
         Column<Component, int> growthCodeColumnOne = new Column<Component, int>
             ("x1000growth", "x1000", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, int> growthCodeColumnTwo = new Column<Component, int>
-            ("%allgrowth", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true);
+            ("%allgrowth", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true, sortable:false);
         Column<Component, int> growthColumnWrapper = new Column<Component, int>
         ("growth", "growth recent", "font-weight: 400;font-size: 13px;color: #6c757d;", null, borderR:true,
             childrenColumns: new List<ColumnBase>() { growthCodeColumnOne, growthCodeColumnTwo });
@@ -90,14 +90,14 @@ public class ComponentsOverview
         Column<Component, long> activeDevsColumnOne = new Column<Component, long>
             ("#activedevs", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> activeDevsColumnTwo = new Column<Component, long>
-            ("%allactivedevs", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allactivedevs", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, long> activeDevsColumnWrapper = new Column<Component, long>
         ("activeDevs", "active" + "<br>" + "recently", "font-weight: 400;font-size: 13px;color: #6c757d;", null,
             childrenColumns: new List<ColumnBase>() { activeDevsColumnOne, activeDevsColumnTwo });
         Column<Component, long> joinedDevsColumnOne = new Column<Component, long>
             ("#joineddevs", "#", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, long> joinedDevsColumnTwo = new Column<Component, long>
-            ("%alljoineddevs", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true);
+            ("%alljoineddevs", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true, sortable:false);
         Column<Component, long> joinedDevsColumnWrapper = new Column<Component, long>
         ("joinedDevs", "joined" + "<br>" + "recently", "font-weight: 400;font-size: 13px;color: #6c757d;", null,borderR:true,
             childrenColumns: new List<ColumnBase>() { joinedDevsColumnOne, joinedDevsColumnTwo });
@@ -115,7 +115,7 @@ public class ComponentsOverview
         Column<Component, long> allCommitsColumnOne = new Column<Component, long>
             ("#recentcommits", "#", "font-weight: 400;font-size: 13px;color: #6c757d;", null);
         Column<Component, long> allCommitsColumnTwo = new Column<Component, long>
-            ("%allrecentcommits", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", borderR:true);
+            ("%allrecentcommits", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", borderR:true, sortable:false);
         Column<Component, long> allCommitsColumnWrapper = new Column<Component, long>
         ("commits", "recent" + "<br>" + "commits", "font-weight: 400;font-size: 13px;color: #6c757d;", null,borderR:true,
             childrenColumns: new List<ColumnBase>() { allCommitsColumnOne, allCommitsColumnTwo });
@@ -132,7 +132,7 @@ public class ComponentsOverview
         Column<Component, int> recentChumColumnOne = new Column<Component, int>
             ("x1000recentChum", "x1000", "font-weight: 400;font-size: 13px;color: #6c757d;");
         Column<Component, int> recentChumColumnTwo = new Column<Component, int>
-            ("%allRecentChum", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true);
+            ("%allRecentChum", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;",borderR:true, sortable:false);
         Column<Component, int> recentChumColumnWrapper = new Column<Component, int>
         ("recentChum", "recent" + "<br>" + "chum", "font-weight: 400;font-size: 13px;color: #6c757d;", null,borderR:true,
             childrenColumns: new List<ColumnBase>() { recentChumColumnOne, recentChumColumnTwo });
@@ -149,7 +149,7 @@ public class ComponentsOverview
         Column<Component, long> allTasksColumnOne = new Column<Component, long>
             ("#recenttasks", "#", "font-weight: 400;font-size: 13px;color: #6c757d;", null);
         Column<Component, long> allTasksColumnTwo = new Column<Component, long>
-            ("%allrecenttasks", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;");
+            ("%allrecenttasks", "%all", "font-weight: 400;font-size: 13px;color: #6c757d;", sortable:false);
         Column<Component, long> allTasksColumnWrapper = new Column<Component, long>
         ("tasks", "recent" + "<br>" + "tasks", "font-weight: 400;font-size: 13px;color: #6c757d;", null,
             childrenColumns: new List<ColumnBase>() { allTasksColumnOne, allTasksColumnTwo });

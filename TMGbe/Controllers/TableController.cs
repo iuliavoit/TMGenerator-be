@@ -7,17 +7,17 @@ namespace TMGbe.Controllers
     [Route("[controller]")]
     public class TableController : ControllerBase
     {
-        
          static  Table<Component> table = new Table<Component>("Test",null);
-         string jsonResult = table.GenerateJsonFromTable(table);
+        
          [HttpGet(Name = "GetTableData")]
-        public IActionResult Get()
+         public IActionResult Get()
         {
+           
             Response.Headers.Add("Access-Control-Allow-Origin", "*");
             Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
             Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
             
-            
+            string jsonResult = table.GenerateJsonFromTable(table);
             return Ok(jsonResult);
         }
     }
